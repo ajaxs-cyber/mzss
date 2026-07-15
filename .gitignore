@@ -9,3 +9,8 @@ db.sqlite3
 .DS_Store
 *.log
 static/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/package-lock.json
