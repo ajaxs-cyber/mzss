@@ -83,7 +83,7 @@ ROOT_URLCONF = "mzss.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "frontend" / "dist"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -161,6 +161,9 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # ═══════════════════════════════════════════
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# React frontend build directory
+FRONTEND_DIR = BASE_DIR / "frontend" / "dist"
 
 
 # ═══════════════════════════════════════════

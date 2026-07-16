@@ -12,8 +12,12 @@ DRF 视图集 - 觅知音音乐场景量化匹配系统
 match 动作实现场景画像与音乐库的量化匹配算法。
 """
 
+import os
 import logging
 from typing import Any, Dict, List, Optional
+
+from django.shortcuts import render
+from django.conf import settings
 
 from django.db.models import QuerySet, Q, Prefetch
 from django.shortcuts import get_object_or_404
@@ -702,3 +706,12 @@ class RecommendationViewSet(viewsets.ReadOnlyModelViewSet):
 
         serializer = self.get_serializer(recs, many=True)
         return Response(serializer.data)
+
+
+# ───────────────────────────────────────────
+# SPA index view — serves React frontend
+# ───────────────────────────────────────────
+
+def index(request):
+    """Serve the React SPA index.html."""
+    return render(request, "index.html")
