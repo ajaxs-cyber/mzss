@@ -14,3 +14,4 @@ static/
 frontend/node_modules/
 frontend/dist/
 frontend/package-lock.json
+music_files/
