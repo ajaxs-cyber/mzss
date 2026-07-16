@@ -14,7 +14,6 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ── 安全密钥 ──
-# 生产环境请通过环境变量设置：DJANGO_SECRET_KEY
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
     "dev-change-me-in-production-mzss-v2-secret-key-2024",
@@ -27,6 +26,9 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() in ("true", "1", "yes")
 ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,0.0.0.0,mzss.onrender.com"
 ).split(",")
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # ═══════════════════════════════════════════
@@ -106,26 +108,13 @@ WSGI_APPLICATION = "mzss.wsgi.application"
 # 6. 数据库配置（SQLite / PostgreSQL 自动切换）
 # ═══════════════════════════════════════════
 
-# 通过环境变量 DATABASE_URL 自动检测数据库类型
-# 格式：postgresql://user:pass@host:port/dbname 或留空使用 SQLite
-_DATABASE_URL = os.environ.get("DATABASE_URL", "")
-
-if _DATABASE_URL.startswith("postgres"):
-    import dj_database_url
-    DATABASES = {
-        "default": dj_database_url.parse(_DATABASE_URL)
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
-
-# 数据库连接池（PostgreSQL 时生效）
-if _DATABASE_URL.startswith("postgres"):
-    DATABASES["default"]["CONN_MAX_AGE"] = 600  # 10 分钟连接复用
+import dj_database_url
+DATABASES = {
+    "default": dj_database_url.config(
+        default="sqlite:///" + str(BASE_DIR / "db.sqlite3"),
+        conn_max_age=600
+    )
+}
 
 
 # ═══════════════════════════════════════════
