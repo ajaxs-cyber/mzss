@@ -1,24 +1,23 @@
-# Web 框架
-Django>=4.2,<5.0
+# ═══════════════════════════════════════════
+# 觅知音 - 音乐场景量化匹配系统 依赖列表
+# ═══════════════════════════════════════════
 
-# WSGI 服务器
-gunicorn>=21.0
+# ── 核心框架 ──
+Django>=4.2,<5.0                # Django Web 框架（LTS 版本）
+djangorestframework>=3.14       # Django REST Framework - API 开发
+django-filter>=23.0             # 高级过滤器支持
+django-cors-headers>=4.0        # CORS 跨域支持
+whitenoise>=6.5                 # 静态文件服务（生产环境）
 
-# 数据库适配（PostgreSQL 用，SQLite 不需要额外包）
-dj-database-url>=2.0
-psycopg2-binary>=2.9
+# ── 数据库 ──
+# SQLite（Django 内置，无需额外依赖）
+# PostgreSQL（生产环境推荐）
+psycopg2-binary>=2.9           # PostgreSQL 适配器（可选）
+dj-database-url>=2.0           # DATABASE_URL 环境变量解析（可选）
 
-# 静态文件（WhiteNoise，生产环境 serve 静态文件用）
-whitenoise>=6.6
+# ── 部署与运维 ──
+gunicorn>=21.0                 # WSGI HTTP 服务器（生产环境）
 
-# 七牛云对象存储（如果你用了）
-qiniu>=7.10
-
-# 图片处理（如果你上传了图片/头像）
-Pillow>=10.0
-
-# HTTP 请求
-requests>=2.31
-
-# 环境变量管理
-python-dotenv>=1.0
+# ── 开发工具（可选）──
+# django-debug-toolbar>=4.0     # 调试工具栏
+# ipython>=8.0                  # 增强型交互式 shell

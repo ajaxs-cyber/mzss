@@ -1,26 +1,11 @@
-import FractalCanvas from '@/components/FractalCanvas';
 import Navigation from '@/components/Navigation';
-import HeroSection from '@/sections/HeroSection';
-import FeatureSection from '@/sections/FeatureSection';
-import GallerySection from '@/sections/GallerySection';
-import FooterSection from '@/sections/FooterSection';
+import HomePage from '@/pages/HomePage';
 
 function App() {
   return (
-    <div className="relative min-h-screen" style={{ background: '#050505' }}>
-      {/* WebGL Background */}
-      <FractalCanvas />
-
-      {/* Navigation */}
+    <div className="min-h-screen" style={{ background: '#f7f6f1' }}>
       <Navigation />
-
-      {/* Content */}
-      <main className="relative">
-        <HeroSection />
-        <FeatureSection />
-        <GallerySection />
-        <FooterSection />
-      </main>
+      <HomePage />
     </div>
   );
 }
